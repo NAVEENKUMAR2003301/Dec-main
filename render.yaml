@@ -1,12 +1,9 @@
-# render.yaml — Deploy the Node.js backend to Render.com
-# Place this file in the project root and connect your repo at https://render.com
-
 services:
   - type: web
     name: stewdec-backend
     runtime: node
     rootDir: Dec-main/stewDec
-    buildCommand: npm install
+    buildCommand: npm install && npm run build
     startCommand: node server/index.js
     envVars:
       - key: PORT
