@@ -2,7 +2,7 @@ services:
   - type: web
     name: stewdec-backend
     runtime: node
-    rootDir: Dec-main/stewDec
+    rootDir: stewDec
     buildCommand: npm install && npm run build
     startCommand: node server/index.js
     envVars:
