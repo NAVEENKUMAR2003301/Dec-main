@@ -1,0 +1,8 @@
+# Python backend dependencies for main.py
+# All imports in main.py are from the standard library — no pip packages required.
+# Python >= 3.11 is required (uses DatabaseSync from node:sqlite equivalent via stdlib sqlite3).
+
+# To run the Python backend:
+#   uvicorn main:app --host 127.0.0.1 --port 8010 --reload
+# Install uvicorn to serve the ASGI app:
+uvicorn>=0.29.0

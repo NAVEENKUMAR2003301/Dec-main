@@ -1,0 +1,111 @@
+{
+  "contactRequests": [],
+  "consultations": [
+    {
+      "id": "consultation_1775461167313_6eg5a8xt",
+      "createdAt": "2026-04-06T07:39:27.313Z",
+      "name": "sam",
+      "email": "sam@gmail.com",
+      "phone": "9879638812",
+      "selectedPackage": "onsite",
+      "selectedDate": "2026-04-23",
+      "selectedTime": "04:00 PM",
+      "selectedTopics": [
+        "Wedding Decoration"
+      ],
+      "selectedTeamMember": {
+        "id": "2",
+        "name": "Rajesh Mehta",
+        "role": "Lead Designer"
+      },
+      "eventDate": "2026-04-29",
+      "guestCount": 10000,
+      "venue": "taj palace  mumbai",
+      "message": "hello"
+    },
+    {
+      "id": "consultation_1775461016709_qfq7rhlj",
+      "createdAt": "2026-04-06T07:36:56.709Z",
+      "name": "doe",
+      "email": "doe@gmail.com",
+      "phone": "9876231821",
+      "selectedPackage": "premium",
+      "selectedDate": "2026-04-16",
+      "selectedTime": "04:00 PM",
+      "selectedTopics": [
+        "Wedding Decoration"
+      ],
+      "selectedTeamMember": {
+        "id": "3",
+        "name": "Ananya Patel",
+        "role": "Event Coordinator"
+      },
+      "eventDate": "2026-04-29",
+      "guestCount": 10000,
+      "venue": "taj palace mumbai",
+      "message": "hello"
+    },
+    {
+      "id": "consultation_1775460778859_qqjahvzy",
+      "createdAt": "2026-04-06T07:32:58.859Z",
+      "name": "doe",
+      "email": "doe@gmail.com",
+      "phone": "9879365421",
+      "selectedPackage": "premium",
+      "selectedDate": "2026-04-23",
+      "selectedTime": "05:00 PM",
+      "selectedTopics": [
+        "Wedding Decoration"
+      ],
+      "selectedTeamMember": {
+        "id": "1",
+        "name": "Priya Sharma",
+        "role": "Creative Director"
+      },
+      "eventDate": "2026-04-30",
+      "guestCount": 10000,
+      "venue": "mumbai",
+      "message": "hello"
+    },
+    {
+      "id": "consultation_1775460650369_zzw3ctqw",
+      "createdAt": "2026-04-06T07:30:50.369Z",
+      "name": "john",
+      "email": "john@gmail.com",
+      "phone": "9187623217",
+      "selectedPackage": "premium",
+      "selectedDate": "2026-04-17",
+      "selectedTime": "09:00 AM",
+      "selectedTopics": [
+        "Full Event Planning"
+      ],
+      "selectedTeamMember": null,
+      "eventDate": "2026-04-23",
+      "guestCount": 2000,
+      "venue": "mumbai",
+      "message": "hiiii"
+    },
+    {
+      "id": "consultation_1775460084609_jien14rn",
+      "createdAt": "2026-04-06T07:21:24.609Z",
+      "name": "john",
+      "email": "john@gmail.com",
+      "phone": "7703789122",
+      "selectedPackage": "basic",
+      "selectedDate": "2026-04-07",
+      "selectedTime": "04:00 PM",
+      "selectedTopics": [
+        "Destination Wedding"
+      ],
+      "selectedTeamMember": {
+        "id": "1",
+        "name": "Priya Sharma",
+        "role": "Creative Director"
+      },
+      "eventDate": "2026-04-23",
+      "guestCount": 500,
+      "venue": "hyderabad",
+      "message": "hiii"
+    }
+  ]
+}
