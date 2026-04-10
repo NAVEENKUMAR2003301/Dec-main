@@ -10,9 +10,9 @@
     "dev:server": "node ./server/index.js",
     "preview": "vite preview",
     "lint": "eslint .",
-    "install": "cd stewDec && npm install",
-    "build": "cd stewDec && npm install && npm run build",
-    "start": "cd stewDec && npm start"
+    "install": "npm install",
+    "build": "npm install && npm run build",
+    "start": "node server/index.js"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.1",
