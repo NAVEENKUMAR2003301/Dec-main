@@ -6,7 +6,7 @@
 set -e
 
 APP_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-HEALTH_URL="http://127.0.0.1:8010/api/health"
+HEALTH_URL="https://dec-main-14or.onrender.com/api/health"
 STARTED_BACKEND=false
 BACKEND_PID=""
 

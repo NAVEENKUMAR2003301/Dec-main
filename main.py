@@ -16,7 +16,8 @@ import os
 # ── Paths ─────────────────────────────────────────────────────────────────────
 BASE_DIR = Path(__file__).resolve().parent
 DIST_DIR = BASE_DIR / "stewDec" / "dist"          # Frontend build output
-DATA_DIR = Path(os.environ.get("DATA_DIR", "/tmp/dec_data"))
+# DATA_DIR = Path(os.environ.get("DATA_DIR", "/tmp/dec_data"))
+DATA_DIR = BASE_DIR / "data"
 DATABASE_PATH = DATA_DIR / "database.sqlite"
 
 CONSULTATION_PACKAGES = {"basic", "premium", "onsite"}

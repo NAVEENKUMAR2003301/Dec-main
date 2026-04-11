@@ -1,7 +1,7 @@
 $ErrorActionPreference = "Stop"
 
 $appDir = Split-Path -Parent $PSScriptRoot
-$healthUrl = "http://127.0.0.1:8010/api/health"
+$healthUrl = "https://dec-main-14or.onrender.com/api/health"
 $startedBackend = $false
 $backendProcess = $null
 

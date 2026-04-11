@@ -550,7 +550,10 @@ const startServer = async () => {
     }
 
     const port = Number(process.env.PORT) || 8010;
-    const url = new URL(request.url, `http://127.0.0.1:${port}`);
+    const url = new URL(
+      request.url,
+      `https://dec-main-14or.onrender.com/${port}`,
+    );
 
     try {
       if (request.method === "GET" && url.pathname === "/api/health") {
