@@ -1,94 +1,144 @@
-const configuredApiBaseUrl = import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, "");
-const apiBaseUrl = configuredApiBaseUrl || "";
-const backendUnavailableMessage = "Cannot reach the backend server. Start `npm run dev:server` and try again.";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
-const buildApiUrl = (path) => `${apiBaseUrl}${path}`;
+/**
+ * Safely parse response — handles empty bodies and non-JSON responses.
+ */
+const safeJson = async (response) => {
+  const text = await response.text();
 
-const createHeaders = (options = {}) => {
-    const headers = new Headers(options.headers || {});
-
-    if (!headers.has("Accept")) {
-        headers.set("Accept", "application/json");
-    }
-
-    if (options.body && !headers.has("Content-Type")) {
-        headers.set("Content-Type", "application/json");
-    }
-
-    return headers;
-};
-
-const parseResponse = async (response) => {
-    const contentType = response.headers.get("content-type") || "";
-
-    if (contentType.includes("application/json")) {
-        try {
-            return await response.json();
-        } catch {
-            return null;
-        }
-    }
-
-    try {
-        const text = await response.text();
-        return text.trim() || null;
-    } catch {
-        return null;
-    }
-};
-
-const getErrorMessage = (payload) => {
-    if (payload && typeof payload === "object" && typeof payload.message === "string") {
-        return payload.message;
-    }
-
-    if (typeof payload === "string") {
-        return payload;
-    }
-
-    return "";
-};
-
-const request = async (path, options = {}) => {
-    let response;
-
-    try {
-        response = await fetch(buildApiUrl(path), {
-            ...options,
-            headers: createHeaders(options),
-        });
-    } catch {
-        throw new Error(backendUnavailableMessage);
-    }
-
-    const payload = await parseResponse(response);
-
-    if (!response.ok) {
-        throw new Error(getErrorMessage(payload) || "The request could not be completed.");
-    }
-
-    return payload;
-};
-
-export const submitContactRequest = (formData) =>
-    request("/api/contact-requests", {
-        method: "POST",
-        body: JSON.stringify(formData),
-    });
-
-export const submitConsultationBooking = (formData) =>
-    request("/api/consultations", {
-        method: "POST",
-        body: JSON.stringify(formData),
-    });
-
-export const fetchConsultations = async (selectedDate) => {
-    const result = await request(
-        `/api/consultations?date=${encodeURIComponent(selectedDate)}`,
-        {
-            method: "GET",
-        },
+  if (!text || text.trim() === "") {
+    throw new Error(
+      `Server returned an empty response (status ${response.status}). Please try again.`,
     );
+  }
 
-    return Array.isArray(result?.items) ? result.items : [];
+  try {
+    return JSON.parse(text);
+  } catch {
+    throw new Error(
+      `Unexpected server response (status ${response.status}). Please try again later.`,
+    );
+  }
+};
+
+/**
+ * Submit a contact request form.
+ * Used by: ContactPage.jsx
+ */
+export const submitContactRequest = async (formData) => {
+  let response;
+
+  try {
+    response = await fetch(`${BASE_URL}/api/contact-requests`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+  } catch {
+    throw new Error(
+      "Unable to reach the server. Please check your connection and try again.",
+    );
+  }
+
+  const data = await safeJson(response);
+
+  if (!response.ok) {
+    throw new Error(
+      data.message || `Request failed with status ${response.status}.`,
+    );
+  }
+
+  return data;
+};
+
+/**
+ * Fetch consultations filtered by date (YYYY-MM-DD).
+ * Used by: BookConsultation.jsx → fetchConsultations(date)
+ */
+export const fetchConsultations = async (date = "") => {
+  const url = date
+    ? `${BASE_URL}/api/consultations?date=${encodeURIComponent(date)}`
+    : `${BASE_URL}/api/consultations`;
+
+  let response;
+
+  try {
+    response = await fetch(url);
+  } catch {
+    throw new Error("Unable to reach the server.");
+  }
+
+  const data = await safeJson(response);
+
+  if (!response.ok) {
+    throw new Error(data.message || "Failed to load consultations.");
+  }
+
+  return data.items || [];
+};
+
+/**
+ * Submit a consultation booking.
+ * Used by: BookConsultation.jsx → submitConsultationBooking(payload)
+ */
+export const submitConsultationBooking = async (formData) => {
+  let response;
+
+  try {
+    response = await fetch(`${BASE_URL}/api/consultations`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+  } catch {
+    throw new Error(
+      "Unable to reach the server. Please check your connection and try again.",
+    );
+  }
+
+  const data = await safeJson(response);
+
+  if (!response.ok) {
+    throw new Error(
+      data.message || `Request failed with status ${response.status}.`,
+    );
+  }
+
+  return data;
+};
+
+/**
+ * Fetch all contact requests (admin use).
+ */
+export const getContactRequests = async () => {
+  let response;
+
+  try {
+    response = await fetch(`${BASE_URL}/api/contact-requests`);
+  } catch {
+    throw new Error("Unable to reach the server.");
+  }
+
+  const data = await safeJson(response);
+
+  if (!response.ok) {
+    throw new Error(data.message || "Failed to load contact requests.");
+  }
+
+  return data.items || [];
+};
+
+/**
+ * Health check.
+ */
+export const checkHealth = async () => {
+  let response;
+
+  try {
+    response = await fetch(`${BASE_URL}/api/health`);
+  } catch {
+    throw new Error("Server is unreachable.");
+  }
+
+  return safeJson(response);
 };
