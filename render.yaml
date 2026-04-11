@@ -2,10 +2,10 @@ services:
   - type: web
     name: stewdec-backend
     runtime: node
-    rootDir: stewDec
+    rootDir: Dec-main/stewDec
     buildCommand: npm install && npm run build
     startCommand: node server/index.js
     envVars:
       - key: PORT
-        value: 8010
+        value: 10000
     autoDeploy: true
